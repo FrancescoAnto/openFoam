@@ -1,0 +1,7 @@
+constant/polyMesh/
+postProcessing/
+[1-9]*/
+processor*/
+log.*
+*.png
+*.foam

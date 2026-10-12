@@ -1,0 +1,25 @@
+#!/bin/sh
+# Esegue il caso Blasius: mesh + solutore + confronto con la soluzione di Blasius
+cd "${0%/*}" || exit 1
+
+command -v blockMesh >/dev/null 2>&1 || {
+    echo "OpenFOAM non trovato: fai prima 'source /path/to/OpenFOAM/etc/bashrc'"; exit 1; }
+
+blockMesh  > log.blockMesh 2>&1 || { echo "blockMesh fallito, vedi log.blockMesh"; exit 1; }
+checkMesh  > log.checkMesh 2>&1
+
+# openfoam.org v11+ usa foamRun, le altre versioni simpleFoam
+if command -v simpleFoam >/dev/null 2>&1; then
+    SOLVER="simpleFoam"
+else
+    SOLVER="foamRun -solver incompressibleFluid"
+fi
+echo "Solutore: $SOLVER"
+$SOLVER > log.solver 2>&1 || { echo "Solutore fallito, vedi log.solver"; exit 1; }
+grep -E "converged|^End" log.solver
+touch blasiusFlatPlate.foam   # per aprire il caso in ParaView
+
+# Confronto con Blasius (richiede python3 + numpy, matplotlib opzionale)
+if command -v python3 >/dev/null 2>&1; then
+    python3 plotBlasius.py
+fi

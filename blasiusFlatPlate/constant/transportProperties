@@ -1,0 +1,17 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso: blasiusFlatPlate - strato limite laminare su lastra piana (Blasius)
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      transportProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// U = 1 m/s, L = 1 m, nu = 1e-5 m2/s  ->  Re_L = 1e5 (laminare)
+transportModel  Newtonian;     // ESI / Foundation <= v9
+viscosityModel  constant;      // Foundation >= v10
+
+nu              [0 2 -1 0 0 0 0] 1e-05;

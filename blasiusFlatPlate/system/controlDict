@@ -1,0 +1,41 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso: blasiusFlatPlate - strato limite laminare su lastra piana (Blasius)
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     simpleFoam;
+
+startFrom       latestTime;
+startTime       0;
+stopAt          endTime;
+endTime         3000;
+deltaT          1;
+
+writeControl    timeStep;
+writeInterval   500;
+purgeWrite      2;
+
+writeFormat     ascii;
+writePrecision  8;
+writeCompression off;
+timeFormat      general;
+timePrecision   6;
+runTimeModifiable true;
+
+functions
+{
+    wallShearStress
+    {
+        type            wallShearStress;
+        libs            ("libfieldFunctionObjects.so");
+        patches         (plate);
+        writeControl    writeTime;
+    }
+}

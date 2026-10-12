@@ -1,0 +1,13 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso: blasiusFlatPlate - strato limite laminare su lastra piana (Blasius)
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      turbulenceProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+simulationType  laminar;

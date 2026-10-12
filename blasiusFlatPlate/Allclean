@@ -1,0 +1,6 @@
+#!/bin/sh
+cd "${0%/*}" || exit 1
+rm -rf constant/polyMesh postProcessing log.* processor* *.png
+# rimuove le cartelle dei tempi tranne 0
+for d in [1-9]*; do [ -d "$d" ] && rm -rf "$d"; done
+echo "Caso pulito."
